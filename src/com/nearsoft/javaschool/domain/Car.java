@@ -3,18 +3,23 @@ package com.nearsoft.javaschool.domain;
 import com.nearsoft.javaschool.enums.CarType;
 
 /**
- * Created by pruiz on 9/21/17.
+ * This example shows the interaction with the Constructors
+ * on the same class and the super class.
  */
 public class Car extends Vehicle {
 
     private CarType type = CarType.SEDAN;
 
     public Car() {
-        super(4);
+        this(CarType.SEDAN);
     }
 
     public Car(CarType type) {
-        super(4);
+        this(type, "UNDEFINED");
+    }
+
+    public Car(CarType type, String plates){
+        super(4,plates);
         this.type = type;
     }
 

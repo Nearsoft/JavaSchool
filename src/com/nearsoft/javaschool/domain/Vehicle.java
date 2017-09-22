@@ -6,8 +6,9 @@ public abstract class Vehicle {
 
     private int numberOfWheels;
 
-    public Vehicle(int numberOfWheels) {
+    public Vehicle(int numberOfWheels, String plates) {
         this.numberOfWheels = numberOfWheels;
+        this.plates = plates;
     }
 
     public String getPlates() {
