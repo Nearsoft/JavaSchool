@@ -4,7 +4,10 @@ import com.nearsoft.javaschool.domain.ParkingLot;
 import com.nearsoft.javaschool.domain.vehicles.Vehicle;
 import com.nearsoft.javaschool.domain.vehicles.VehicleFactory;
 import com.nearsoft.javaschool.enums.VehicleType;
+import com.nearsoft.javaschool.repository.ParkingLotRepository;
+import com.nearsoft.javaschool.service.ParkingLotReporter;
 import com.nearsoft.javaschool.service.ParkingLotService;
+import com.nearsoft.javaschool.service.impl.ParkingLotReporterImpl;
 import com.nearsoft.javaschool.service.impl.ParkingLotServiceImpl;
 
 import java.util.ArrayList;
@@ -19,6 +22,7 @@ public class App {
 
         // Create a new parking lot
         ParkingLot parkingLot = ParkingLot.getParkingLot("Java School", 3);
+        ParkingLotRepository parkingLotRepository = ParkingLotRepository.getParkingLotRepository();
 
         // Initialize the service to perform operations
         ParkingLotService parkingLotService = new ParkingLotServiceImpl(parkingLot);
@@ -32,7 +36,6 @@ public class App {
         cars.add(VehicleFactory.getVehicle(VehicleType.MOTORCYCLE));
 
         for (Vehicle car : cars) {
-
             System.out.println("Total of available spots: " + parkingLotService.getFreeSpots());
             if (parkingLotService.park(car)) {
                 System.out.println("The car: " + car.getPlates() + " was parked successfully.");
@@ -41,20 +44,7 @@ public class App {
             }
         }
 
-        for (Vehicle car : cars) {
-
-            System.out.println("Total of available spots: " + parkingLotService.getFreeSpots());
-            double fare = parkingLotService.clearSpot(car);
-            if (fare > 0) {
-                System.out.println("Total fare: " + fare);
-                System.out.println("The car: " + car.getPlates() + " was unparked successfully.");
-            } else {
-                System.out.println("The car was not founded.");
-            }
-        }
-
-        System.out.println("Total of available spots: " + parkingLotService.getFreeSpots());
-
+        ParkingLotReporter parkingLotReporter = new ParkingLotReporterImpl(parkingLot, parkingLotRepository);
     }
 
 }
